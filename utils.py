@@ -14,7 +14,7 @@ def grader_01(X,y,theta,student_answer):
   msg = "testing your answer..."
   
   sigm_teacher = lambda z: 1/(1+np.exp(-z))   
-  h_teacher = sigm(np.dot(X,theta))
+  h_teacher = sigm_teacher(np.dot(X,theta))
   
   for i in range(1):
   
