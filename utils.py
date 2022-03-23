@@ -1,6 +1,7 @@
 from IPython.display import HTML
 from base64 import b64encode
 import numpy as np
+import math
 
 def show_video(video_path, video_width = 600):
 
@@ -38,5 +39,58 @@ def grader_01(X,y,theta,student_answer):
         msg += "<br><br>" +  "<font color='red'INCORRECT!> " + repr(e) + "</font>"
   
     return HTML(msg)
-  
-  
+
+def grader_02(X,y,theta,student_answer):
+    error = False
+    msg = "testing your answer..."
+
+    sigm_teacher = lambda z: 1/(1+np.exp(-z))   
+    h_teacher = sigm_teacher(np.dot(X,theta))
+    pred_teacher = (h_teacher>=0.5).astype(int)
+
+    try:
+        for i in range(1):
+
+            if student_answer.shape != pred_teacher.shape:
+                error = True
+                msg += "</br><br><font color='red'>INCORRECT DIMENSIONS</font><br> expected " + str(h_teacher.shape) + " but got: " + str(student_answer.shape)
+                break
+
+            np.testing.assert_allclose(pred_teacher,student_answer)
+
+            if not error:
+                msg += "<br><br><br><font color='green'><b>CORRECT! Congratulations</b></font>"
+
+    except AssertionError as e_1:
+        msg += "<br><font color='red'>INCORRECT ANSWER</font>:<br> expected <br>" + str(pred_teacher) + "<br><br>but got:<br><br>" + str(student_answer)
+
+    except Exception as e:
+        msg += "<br><br> The following error was detected! Check your code: "
+        msg += "<br><br>" +  "<font color='red'INCORRECT!> " + repr(e) + "</font>"
+
+    return HTML(msg)
+
+def grader_03(X,y,theta,student_answer):
+    error = False
+    msg = "testing your answer..."
+
+    sigm_teacher = lambda z: 1/(1+np.exp(-z))   
+    h_teacher = sigm_teacher(np.dot(X,theta))
+    pred_teacher = (h_teacher>=0.5).astype(int)
+    accuracy_teacher = np.sum(pred_teacher == y)/len(pred_teacher)
+
+    try:
+        for i in range(1):
+            if not math.isclose(student_answer, accuracy):
+                error = True
+                msg += "<br><br><font color='red'>INCORRECT ANSWER</font>:<br> expected <br>" + str(accuracy) + "<br><br>but got:<br><br>" + str(student_answer)
+                break
+
+            if not error:
+                msg += "<br><br><br><font color='green'><b>CORRECT! Congratulations</b></font>"
+            
+    except Exception as e:
+        msg += "<br><br> The following error was detected! Check your code: "
+        msg += "<br><br>" +  "<font color='red'INCORRECT!> " + repr(e) + "</font>"
+
+    return HTML(msg)
