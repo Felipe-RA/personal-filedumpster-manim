@@ -10,6 +10,7 @@ def show_video(video_path, video_width = 600):
     return HTML(f"""<video width={video_width} controls><source src="{video_url}"></video>""")
 
 
+
 def grader_01(X,y,theta,student_answer):
     error = False
     msg = "testing your answer..."
