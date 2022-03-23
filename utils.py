@@ -9,7 +9,7 @@ def show_video(video_path, video_width = 600):
   video_url = f"data:video/mp4;base64,{b64encode(video_file).decode()}"
   return HTML(f"""<video width={video_width} controls><source src="{video_url}"></video>""")
 
- def grader_01(X,y,theta,student_answer):
+def grader_01(X,y,theta,student_answer):
   error = False
   msg = "testing your answer..."
   
