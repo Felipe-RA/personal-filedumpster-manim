@@ -81,7 +81,7 @@ def grader_03(X,y,theta,student_answer):
 
     try:
         for i in range(1):
-            if not math.isclose(student_answer, accuracy):
+            if not math.isclose(student_answer, accuracy_teacher):
                 error = True
                 msg += "<br><br><font color='red'>INCORRECT ANSWER</font>:<br> expected <br>" + str(accuracy) + "<br><br>but got:<br><br>" + str(student_answer)
                 break
